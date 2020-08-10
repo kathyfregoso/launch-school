@@ -1,0 +1,1 @@
+// falsy values: null, 0, undefined, NaN, -0, BigInt (0n), "", false
