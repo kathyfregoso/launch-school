@@ -26,7 +26,7 @@
 
 // DATA STRUCTURE:
 // numbers -> math operations
-// string -> template literal
+// string -> template literal, user input
 
 // ALGORITHM:
 // require the readlineSync library at the top of the page
