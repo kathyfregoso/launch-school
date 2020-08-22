@@ -64,7 +64,7 @@ console.log(isLeapYear(400));       // true
 // future reference: test for least common cases first (years div by 400, years div by 100). anything else, if the year is div by 4, returns true.
 // the ORDER in which you perform tests for a leap year calculation is important
 
-// while this fail?
+// will this fail?
 
 // function isLeapYear(year) {
 //   if (year % 100 === 0) {
