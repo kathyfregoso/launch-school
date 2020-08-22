@@ -42,7 +42,7 @@
 // - else if (input % 100 === 0 && input % 400 === 0) return true
 
 function isLeapYear(year) {
-  if (year % 100 === 0 && year % 400 === 0) return true;
+  if (year % 400 === 0) return true;
     else if (year % 4 === 0 && year % 100 !== 0) return true;
     else return false;
 }
