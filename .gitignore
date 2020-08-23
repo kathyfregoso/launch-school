@@ -1,0 +1,9 @@
+# ignore node_module folder
+
+node_modules/
+
+# ignore aslant configuration file
+
+.eslintrc.yml
+
+.eslintrc.js
