@@ -1,0 +1,24 @@
+{
+  "name": "launch-school",
+  "version": "1.0.0",
+  "description": "This repo hosts exercise files from the Launch School Javascript Core Curriculum.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kathyfregoso/launch-school.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kathyfregoso/launch-school/issues"
+  },
+  "homepage": "https://github.com/kathyfregoso/launch-school#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.7.0",
+    "eslint-cli": "^1.1.1"
+  }
+}
