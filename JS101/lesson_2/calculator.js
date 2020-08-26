@@ -1,11 +1,3 @@
-// Ask user for the first number
-// Ask user for the second number.
-// Ask user for an operation to perform.
-// Perform the operation on the two numbers.
-// Print the result in the terminal.
-
-// require() is a built-in node function that looks for readline-sync library
-// returns library as obj, which we assign as the const readline var
 const readline = require('readline-sync');
 
 function prompt(message) {
@@ -18,9 +10,7 @@ function invalidNumber(num) {
 
 prompt('Welcome to Calculator!');
 
-// use built-in question method from readline-sync library to get user input
-// readline.question, readline is the name of the var containing the obj
-// quest method makes prog wait for keyboard, returns str when 'Return' pressed
+
 prompt('What is the first number?');
 let num1 = readline.question();
 
@@ -65,4 +55,3 @@ switch (operation) {
 }
 
 prompt(`The result is: ${output}`);
-

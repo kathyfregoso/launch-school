@@ -14,19 +14,7 @@
 // can we assume the input will be a primitive number value?
 
 // EXAMPLES / TEST CASES: 
-// isLeapYear(2016);      // true
-// isLeapYear(2015);      // false
-// isLeapYear(2100);      // false
-// isLeapYear(2400);      // true
-// isLeapYear(240000);    // true
-// isLeapYear(240001);    // false
-// isLeapYear(2000);      // true
-// isLeapYear(1900);      // false
-// isLeapYear(1752);      // true
-// isLeapYear(1700);      // false
-// isLeapYear(1);         // false
-// isLeapYear(100);       // false
-// isLeapYear(400);       // true
+// see below
 
 // ERRORS - return undefined: 2015,  240001, 1 (explicitly wrote a conditional for years not divisible by 4 returning false)
 
