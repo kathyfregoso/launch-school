@@ -1,4 +1,5 @@
 // bonus features:
+// TBA: best of 5 (keep score of wins)
 
 // ROCK PAPER SCISSORS SPOCK LIZARD RULES:
 // scissors > paper
@@ -21,6 +22,7 @@ const WIN_COMBOS = {
   lizard: ["paper", "spock"],
   spock: ["rock", "scissors"],
 };
+const VALID_ANSWERS = ["y", "yes", "n", "no"];
 
 function prompt(message) {
   console.log(`>> ${message}`);
@@ -38,13 +40,43 @@ function determineWinner(choice, compChoice) {
   }
 }
 
+function shorthandChoice(inputChoice) {
+  switch (inputChoice) {
+    case "r":
+      inputChoice = "rock";
+      break;
+    case "p":
+      inputChoice = "paper";
+      break;
+    case "sc":
+      inputChoice = "scissors";
+      break;
+    case "sp":
+      inputChoice = "spock";
+      break;
+    case "l":
+      inputChoice = "lizard";
+      break;
+  }
+  return inputChoice;
+}
+
 while (true) {
-  prompt(`Choose one: ${VALID_CHOICES.join(", ")}`);
+  prompt("Choose one option:");
+  prompt(
+    `${VALID_CHOICES.join(", ")}\n(shorthand: 'r', 'p', 'sc', 'l', or 'sp')`
+  );
   let choice = readline.question();
+  choice = shorthandChoice(choice);
 
   while (!VALID_CHOICES.includes(choice)) {
-    prompt("That choice is invalid, try again.");
+    prompt(
+      `Error, type:\n${VALID_CHOICES.join(
+        ", "
+      )} \nOR \n'r', 'p', 'sc', 'l', or 'sp'`
+    );
     choice = readline.question();
+    choice = shorthandChoice(choice);
   }
 
   let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
@@ -56,8 +88,9 @@ while (true) {
 
   prompt("Do you want to play again? (y/n)?");
   let answer = readline.question().toLowerCase();
-  while (answer[0] !== "n" && answer[0] !== "y") {
-    prompt('Please enter "y" or "n".');
+
+  while (!VALID_ANSWERS.includes(answer)) {
+    prompt('Please enter "yes" (y) or "no" (n).');
     answer = readline.question().toLowerCase();
   }
 

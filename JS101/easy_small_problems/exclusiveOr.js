@@ -6,7 +6,7 @@
 // if exactly one arg is false, return boolean false
 
 // REQ'S:
-// write a function named xor that takes two arguments, and returns true if exactly one of its args is truthy, else false
+// returns true if exactly one of its args is truthy, else false
 // looking for boolean result instead of a truthy/falsy value as returned by || and &&.
 
 // QUESTIONS:
@@ -24,4 +24,13 @@
 
 // ALGORITHM:
 
-function xor(val1, val2) {}
+function xor(val1, val2) {
+  if (val1 !== val2) {
+    return true;
+  }
+}
+
+console.log(xor(5, 0) === true);
+console.log(xor(false, true) === true);
+console.log(xor(1, 1) === false);
+console.log(xor(true, true) === false);
