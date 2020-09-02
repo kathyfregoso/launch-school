@@ -2,7 +2,7 @@
 // "seven years ago..."
 
 // OUTPUT:
-// "Four score and seeven years ago..."
+// "Four score and seven years ago..."
 
 // REQUIREMENTS:
 // show two different ways to put "Four score and " in front of input
