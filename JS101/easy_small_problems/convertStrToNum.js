@@ -37,36 +37,36 @@
 
 // CODE:
 
-// function stringToInteger(string) {
-//   return +string;
-// }
+function stringToInteger(string) {
+  return +string;
+}
 
 // OR
 
-// function stringToInteger(string) {
-//   return string * 1;
-// }
+function stringToInteger(string) {
+  return string * 1;
+}
 
 // OR
 
-// function stringToInteger(string) {
-//   let digits = {
-//     0: 0,
-//     1: 1,
-//     2: 2,
-//     3: 3,
-//     4: 4,
-//     5: 5,
-//     6: 6,
-//     7: 7,
-//     8: 8,
-//     9: 9,
-//   };
-//   let arrayOfDigits = string.split("").map((character) => digits[character]);
-//   let val = 0;
-//   arrayOfDigits.forEach((digit) => (val = val * 10 + digit));
-//   return val;
-// }
+function stringToInteger(string) {
+  let digits = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+    9: 9,
+  };
+  let arrayOfDigits = string.split("").map((character) => digits[character]);
+  let val = 0;
+  arrayOfDigits.forEach((digit) => (val = val * 10 + digit));
+  return val;
+}
 
 // let output = stringToInteger("570");
 // console.log(stringToInteger("431") === 431); // logs true
@@ -116,8 +116,14 @@ function hexadecimalToInteger(string) {
     E: 14,
     F: 15,
   };
-  let stringArr = newStr.split("").map((el) => hexDigits[el]);
-  // formula to convert hex to decimal (see above)
+  let result = 0;
+  let digitVal = 0;
+  let stringArr = newStr.split("").forEach((el) => {
+    digitVal = hexDigits[el];
+    result = result * 16 + digitVal;
+  });
+  return result;
 }
 
-console.log(hexadecimalToInteger("4D9f"));
+console.log(hexadecimalToInteger("4D9f")); // 19871
+console.log(hexadecimalToInteger("9Dca")); // 40394;
