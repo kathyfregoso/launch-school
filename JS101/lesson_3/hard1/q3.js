@@ -4,7 +4,6 @@
 
 // A, B and C all demonstrate variable shadowing: when a local var in inner scope shares the same name as a var in outer scope
 // variable shadowing prevents inner vars from accessing outer scope vars
-// as a result, the console does not log the values of outer scope variables one, two and three
 // params one, two and three are not the same as global vars one, two and three
 
 function messWithVars(one, two, three) {
@@ -91,8 +90,3 @@ messWithVars(one, two, three);
 console.log(`one is: ${one}`); // logs 'one is: two'
 console.log(`two is: ${two}`); // outputs 'two is: three'
 console.log(`three is: ${three}`); // outputs 'three is: one'
-
-// the body of code inside messWithVars DOES change because the parameter values are
-// no longer 'undefined'
-// the splice method give each parameter a string value
-// the console log methods access the values messWithVars invocation
