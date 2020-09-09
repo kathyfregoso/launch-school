@@ -15,17 +15,16 @@
 // number
 
 // ALGORITHMS:
-// make sure input is greater than 0
-// add 100 to input, then convert it to a string
-// add the first two digits to a variable with empty string
+// formula pattern: century number = century / 100 + 1
+// exception: century divisible by 100 (no remainder) = century / 100
+
 // concatenate appropriate ending to two digits:
-// - if the str ends with, 0, 4, 5, 6, 7, 8, 9 - th
+// - if the str ends with 11, 12, 13 - th
 // - if the string ends with 1 - st
 // - if the string ends with 2 - nd
 // - if the string ends with 3 - rd
-// return the 2 concatenated strings
+// - all else ends with "th"
 
-// adds st, nd, rd, st
 function endsWithChars(century) {
   century = String(century);
   let lastTwoDigits = century.slice(century.length - 2);
