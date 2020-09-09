@@ -18,7 +18,7 @@
 // formula pattern: century number = century / 100 + 1
 // exception: century divisible by 100 (no remainder) = century / 100
 
-// concatenate appropriate ending to two digits:
+// concatenate appropriate ending to century:
 // - if the str ends with 11, 12, 13 - th
 // - if the string ends with 1 - st
 // - if the string ends with 2 - nd
