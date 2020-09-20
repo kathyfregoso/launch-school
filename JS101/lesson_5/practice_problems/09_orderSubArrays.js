@@ -6,8 +6,6 @@
 // return new array with same structure
 // order subarrays alphabetically or numerically as appropriate
 
-// QUESTIONS:
-
 // EXAMPLES/TEST CASES:
 // ["b", "c", "a"] => ["a", "b", "c"]
 // [2,1,3] => [1,2,3]
