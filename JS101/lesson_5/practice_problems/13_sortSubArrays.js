@@ -17,12 +17,21 @@
 // arrays, integers
 
 // ALGORITHMS:
-// 1. create new array
-// 2. create sum variable with value of 0
-// 2. loop through arr
-// 3. if sum of odd nums in curr sub-array is smaller than sum variable, add subarray to new array
-// 4. exit loop once you reach the end of nested subarray
-// 5. return new sorted array
+// SUBARRAY ODD NUM SUMS:
+// computes the sum of each subarrays' odd number elements
+// - loop through the outer array
+// - then loop through subarrays
+// - for each subarray, check that the current value is odd
+// - if the value is odd, add value to sum
+// - if not add, skip that element
+// - return the sum of subarray
+// - output nested array of sums
+
+// SORT BY ODD NUM SUMS:
+// use the computeOddSums function to sort
+// assign output of computeOddSums(arr) to oddNumsTotal variable
+// compre value of subarrays to oddNumsTotal variable by corresponding index
+// sort based on the value of the sum of odd nums variable
 
 let arr = [
   [1, 6, 7],
@@ -30,6 +39,19 @@ let arr = [
   [1, 8, 3],
 ];
 
-function sortNestedArr(arr) {
-  let newArr = [];
-}
+let result = arr.sort((a, b) => {
+  // here, a and b are assigned to the subarrays
+  // reduce finds the sum of filtered odd numbers in subarrays, and returns their difference, which'll be used to sort the arrays
+  // use a and b only for comparison callbacks
+
+  let oddSumA = a
+    .filter((num) => num % 2 === 1)
+    .reduce((sum, curr) => sum + curr);
+  let oddSumB = b
+    .filter((num) => num % 2 === 1)
+    .reduce((sum, curr) => sum + curr);
+
+  return oddSumA - oddSumB;
+});
+
+console.log(result);
