@@ -50,12 +50,27 @@ function findEmptySquare(board) {
   });
 }
 
+function joinOr(board, punctuate = ", ", delimiter = " or") {
+  board = findEmptySquare(board);
+  let boardAllButLast = board.slice(0, board.length - 1).join(punctuate);
+
+  if (board.length > 1) {
+    return userPrompt(
+      `Choose a square (${boardAllButLast}${delimiter} ${
+        board[board.length - 1]
+      }):`
+    );
+  } else {
+    return userPrompt(`Choose a square (${board}):`);
+  }
+}
+
 // player chooses a square to place their X
 function playerChoice(board) {
   let square;
 
   while (true) {
-    userPrompt(`Choose a square (${findEmptySquare(board).join(", ")}):`);
+    joinOr(board, "; ", " and");
     square = readline.question().trim();
     if (findEmptySquare(board).includes(square)) break; // guard clause
 
@@ -113,7 +128,7 @@ function findWinner(board) {
 
 // returns true or false
 function existingWinner(board) {
-  return !!findWinner(board); // !! converts truthy val to true and falsy to falsy value
+  return findWinner(board);
 }
 
 while (true) {
@@ -143,4 +158,5 @@ while (true) {
   if (answer !== "y") break;
 }
 
+console.clear();
 userPrompt(`Goodbye!`);
