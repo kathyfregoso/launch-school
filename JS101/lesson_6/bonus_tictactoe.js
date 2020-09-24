@@ -218,13 +218,9 @@ function findWinner(board) {
   return null;
 }
 
-// returns true or false
-// NEW NAME
 function someoneWon(board) {
   return !!findWinner(board);
 }
-
-// NEW FUNCTIONS
 
 function updateScore(scores, winner) {
   if (Object.keys(scores).includes(winner)) {
