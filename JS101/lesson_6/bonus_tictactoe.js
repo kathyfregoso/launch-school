@@ -7,7 +7,6 @@ const MAX_WINS = 3;
 const SQUARE_FIVE = "5";
 const FIRST_PLAYER = ["player", "p", "computer", "c"];
 const VALID_ANSWERS = ["y", "yes", "no", "n"];
-
 const WIN_COMBOS = [
   [1, 2, 3],
   [4, 5, 6],
@@ -87,6 +86,7 @@ function findEmptySquare(board) {
   });
 }
 
+// square number choices separated by punctuation
 function joinOr(board, punctuate = ", ", delimiter = " or") {
   board = findEmptySquare(board);
   let boardAllButLast = board.slice(0, board.length - 1).join(punctuate);
@@ -139,7 +139,7 @@ function findVulnerableSquare(line, board, piece) {
   return null;
 }
 
-// computer places their piece ('O') on the board
+// computer places game piece
 function computerChoice(board) {
   let square;
 
@@ -159,13 +159,14 @@ function computerChoice(board) {
     }
   }
 
-  // RANDOM SQUARE
+  // MIDDLE SQUARE
   if (!square) {
     if (board[SQUARE_FIVE] === EMPTY_SQUARE) {
       square = 5;
     }
   }
 
+  // RANDOM SQUARE
   if (!square) {
     square = chooseRandomSquare(board);
   }
@@ -173,6 +174,7 @@ function computerChoice(board) {
   board[square] = COMP_PIECE;
 }
 
+// choose a square depending on the current player
 function chooseSquare(board, currentPlayer) {
   if (currentPlayer === "p") {
     playerChoice(board);
@@ -230,10 +232,12 @@ function updateScore(scores, winner) {
   }
 }
 
+// determines when the match ends
 function matchEnds(scores) {
   return scores["player"] === MAX_WINS || scores["computer"] === MAX_WINS;
 }
 
+// match winner displayed
 function grandWinner(scores) {
   if (scores["player"] > scores["computer"]) {
     userPrompt(`Congrats, you are the GRAND WINNER!`);
@@ -242,6 +246,7 @@ function grandWinner(scores) {
   }
 }
 
+// option to play another match
 function playAgain() {
   userPrompt(`Another match? (y/n)`);
   let nextMatch = readline.question().toLowerCase().trim();
@@ -253,6 +258,7 @@ function playAgain() {
   return nextMatch[0];
 }
 
+// option to quit between rounds
 function playNextRound(scores, activeGame) {
   if (!matchEnds(scores)) {
     let answer = readline
