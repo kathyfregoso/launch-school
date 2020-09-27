@@ -139,6 +139,8 @@ function findVulnerableSquare(line, board, piece) {
 
 function offenseOrDefense(board) {
   let square;
+
+  // DEFENSIVE
   for (let index = 0; index < WIN_COMBOS.length; index++) {
     let line = WIN_COMBOS[index];
     square = findVulnerableSquare(line, board, COMP_PIECE);
