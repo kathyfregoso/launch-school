@@ -3,7 +3,7 @@ const readline = require("readline-sync");
 const EMPTY_SQUARE = " ";
 const USER_PIECE = "X";
 const COMP_PIECE = "O";
-const MAX_WINS = 5;
+const MAX_WINS = 3;
 const SQUARE_FIVE = "5";
 const FIRST_PLAYER = ["player", "p", "computer", "c"];
 const VALID_ANSWERS = ["y", "yes", "no", "n"];
@@ -23,20 +23,19 @@ function userPrompt(message) {
   console.log(`>> ${message}`);
 }
 
-// displays the board based on gameplay
-function displayBoard(board, scores) {
+function welcome(scores) {
   console.clear();
   console.log(scores);
-
   userPrompt(
     `Welcome to Tic-Tac-Toe!\n The first player to win ${MAX_WINS} games is the grand winner!`
   );
+  userPrompt(`You are ${USER_PIECE}. The computer is ${COMP_PIECE}.\n`);
+}
 
-  userPrompt(
-    `You are playing as ${USER_PIECE}. The computer is ${COMP_PIECE}.`
-  );
+// displays the board based on gameplay
+function displayBoard(board, scores) {
+  welcome(scores);
 
-  console.log("");
   console.log("     |     |".padStart(27));
   console.log(
     `  ${board["1"]}  |  ${board["2"]}  |  ${board["3"]}`.padStart(30)
@@ -54,7 +53,6 @@ function displayBoard(board, scores) {
     `  ${board["7"]}  |  ${board["8"]}  |  ${board["9"]}`.padStart(30)
   );
   console.log("     |     |     \n".padStart(33));
-  console.log("");
 }
 
 // displays initial board
@@ -139,25 +137,30 @@ function findVulnerableSquare(line, board, piece) {
   return null;
 }
 
-// computer places game piece
-function computerChoice(board) {
+function offenseOrDefense(board) {
   let square;
-
-  // DEFENSIVE
-  for (let i = 0; i < WIN_COMBOS.length; i++) {
-    let line = WIN_COMBOS[i];
+  for (let index = 0; index < WIN_COMBOS.length; index++) {
+    let line = WIN_COMBOS[index];
     square = findVulnerableSquare(line, board, COMP_PIECE);
     if (square) break;
   }
 
   // OFFENSIVE
   if (!square) {
-    for (let i = 0; i < WIN_COMBOS.length; i++) {
-      let line = WIN_COMBOS[i];
+    for (let index = 0; index < WIN_COMBOS.length; index++) {
+      let line = WIN_COMBOS[index];
       square = findVulnerableSquare(line, board, USER_PIECE);
       if (square) break;
     }
   }
+  board[square] = COMP_PIECE;
+}
+
+// computer places game piece
+function computerChoice(board) {
+  let square;
+
+  offenseOrDefense(board);
 
   // MIDDLE SQUARE
   if (!square) {
@@ -263,13 +266,12 @@ function playNextRound(scores, activeGame) {
       .trim()[0];
     activeGame = answer !== `q`;
   }
+
   return activeGame;
 }
 
-let activeMatch = true;
-
 // PROGRAM LOOP
-while (activeMatch) {
+while (true) {
   console.clear();
   let activeGame = true;
   let board = emptyBoard();
@@ -293,17 +295,16 @@ while (activeMatch) {
       updateScore(scores, findWinner(board));
       displayBoard(board, scores);
       userPrompt(`${findWinner(board)} won!`);
-      activeGame = playNextRound(scores, activeGame);
     } else {
       updateScore(scores, findWinner(board));
       displayBoard(board, scores);
       userPrompt(`It's a tie!`);
-      activeGame = playNextRound(scores, activeGame);
     }
+    activeGame = playNextRound(scores);
 
-    grandWinner(scores);
     if (matchEnds(scores)) break;
   }
+  grandWinner(scores);
   if (playAgain() !== "y") break;
 }
 console.clear();
