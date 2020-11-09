@@ -33,13 +33,13 @@ function featured(num) {
 
   let multiple = findClosestOddMultiple(num);
   if (checkIfValidFeaturedNum(multiple) && multiple !== num) {
-    console.log(multiple);
+    // console.log(multiple);
     return multiple;
   } else {
     do {
       multiple = multiple + 7;
     } while (!checkIfValidFeaturedNum(multiple));
-    console.log(multiple);
+    // console.log(multiple);
     return multiple;
   }
 }
