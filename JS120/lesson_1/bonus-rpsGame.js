@@ -238,7 +238,6 @@ function createComputer() {
     choose() {
       let arrOfChoices = [];
       MOVES.forEach((choice) => {
-        // if (this.checkIfChoiceWins(choice)) arrOfChoices.push(choice);
         arrOfChoices.push(choice);
       });
       let randomIndex = Math.floor(Math.random() * MOVES.length);
