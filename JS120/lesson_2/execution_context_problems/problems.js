@@ -106,4 +106,4 @@ let bar = {
 
 console.log(bar.add.call(foo)); // logs 3
 // we invoke call on bar.add with foo as the explicit execution context. this means the add method
-// foo.a and foo.b, not bar.a and bar.b, to determine the results. thus foo.a + foo.b returns 3.
+// uses foo.a and foo.b, not bar.a and bar.b, to get the results. thus foo.a + foo.b returns 3.
