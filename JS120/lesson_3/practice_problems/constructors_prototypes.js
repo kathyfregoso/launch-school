@@ -189,7 +189,7 @@ methods defined on the prototype always return the context object (in this case,
 // 8 - write constructor that can be used w/ or w/out new operator. function returns same result
 // either way.
 
-// constructor functions built this way are scope-safe constructors.
+// scope-safe constructor:
 function User(first, last) {
   if (!(this instanceof User)) {
     return new User(first, last);
@@ -205,13 +205,3 @@ let user2 = User("John", "Doe");
 console.log(name); // => Jane Doe
 console.log(user1.name); // => John Doe
 console.log(user2.name); // => John Doe
-
-// most of JS's built-in constructors, like Object, RegExp, Array, are scope-safe. String isn't.
-new Object(); // Object {}
-Object(); // Object {}
-
-new Array(1, 2, 3); // [1, 2, 3]
-Array(1, 2, 3); // [1, 2, 3]
-
-new String("abc"); // [String: 'abc']
-String("abc"); // 'abc'
