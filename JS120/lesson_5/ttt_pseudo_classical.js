@@ -139,7 +139,6 @@ TTTGame.prototype.displayGoodbyeMessage = function () {
 };
 
 TTTGame.prototype.displayResults = function () {
-  //STUB
   if (this.isWinner(this.human)) {
     console.log(`You won! Congrats.`);
   } else if (this.isWinner(this.computer)) {
