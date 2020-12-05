@@ -1,3 +1,5 @@
+/* eslint-disable max-lines-per-function, max-statements */
+
 let readline = require("readline-sync");
 
 class Square {
@@ -172,8 +174,8 @@ class TTTGame {
   }
 
   playOneGame() {
-    let currentPlayer = this.firstPlayer;
-
+    let currentPlayer = this.goFirst();
+    console.clear();
     this.board.reset();
     this.board.display();
 
@@ -337,6 +339,23 @@ class TTTGame {
 
   gameOver() {
     return this.board.isFull() || this.someoneWon();
+  }
+
+  goFirst() {
+    let answer;
+
+    while (true) {
+      answer = readline
+        .question("Would you like to go first? (y/n)")
+        .toLowerCase()
+        .trim();
+      if (TTTGame.VALID_ANSWERS.includes(answer)) break;
+
+      console.log("Sorry, not a valid choice.");
+      console.log("");
+    }
+
+    return answer[0] === "y" ? this.human : this.computer;
   }
 
   someoneWon() {
