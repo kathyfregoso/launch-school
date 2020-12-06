@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function, max-statements */
+/* eslint-disable max-lines-per-function, max-statements, max-len */
 const readline = require("readline-sync");
 const shuffle = require("shuffle-array");
 
@@ -143,14 +143,29 @@ class Dealer extends Participant {
 }
 
 class TwentyOneGame {
+  static TARGET_SCORE = 21;
   constructor() {
     // STUB
-    // what state does game need?
+    this.player = new Player();
+    this.dealer = new Dealer();
+    this.deck = null;
+    this.winner = null;
   }
 
   start() {
     //SPIKE
     this.displayWelcomeMessage();
+
+    while (true) {
+      this.playOneGame();
+
+      if (this.player.zeroDollarsLeft() || this.player.doublePlayerDollars()) {
+        break;
+      }
+
+      if (!this.playAgain()) break;
+      console.clear();
+    }
     this.dealCards();
     this.showCards();
     this.playerTurn();
@@ -159,8 +174,35 @@ class TwentyOneGame {
     this.displayGoodbyeMessage();
   }
 
+  playOneGame() {}
+
+  playAgain() {
+    let answer;
+    let acceptable = ["y", "n"];
+
+    while (true) {
+      prompt("Play again? (y or n)");
+      answer = readline.question().toLowerCase().trim();
+      if (acceptable.includes(answer)) break;
+
+      prompt("Invalid amswer, try again.");
+      console.log("");
+    }
+
+    return answer === "y";
+  }
+
   displayWelcomeMessage() {
-    // STUB
+    console.clear();
+    console.log(`Welcome to Twenty-One!`);
+    console.log(
+      `Your goal is to get as close to a score of 21 as possible, without going over.`
+    );
+    console.log(
+      `You start with ${Player.dollars} in your pot. Every time you win, you get $1. Conversely, every time you lose, you lose $1.`
+    );
+    console.log(`The game ends when you have $0 left or when you have $21.`);
+    console.log("");
   }
 
   dealCards() {

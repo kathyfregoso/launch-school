@@ -157,11 +157,14 @@ class TTTGame {
 
   playMatch() {
     console.log(
-      `First player to win ${TTTGame.MAX_WINS} games wins the match.`
+      `First player to win ${TTTGame.MAX_WINS} games is the grand winner!\n`
+    );
+    console.log(
+      `You are ${Square.HUMAN_PIECE}. The computer is ${Square.COMPUTER_PIECE}.\n`
     );
 
     while (true) {
-      this.playOneGame();
+      this.playRound();
       this.updateMatchScore();
       this.displayScore();
 
@@ -170,16 +173,18 @@ class TTTGame {
       this.firstPlayer = this.togglePlayer(this.firstPlayer);
     }
 
-    this.displayMatchResults();
+    this.displayMatchWinner();
   }
 
-  playOneGame() {
-    let currentPlayer = this.goFirst();
+  playRound() {
+    let currentPlayer = this.chooseFirstPlayer();
     console.clear();
     this.board.reset();
-    this.board.display();
+    // this.board.display();
+    this.board.displayWithClear();
 
     while (true) {
+      this.displayScore();
       this.playerMoves(currentPlayer);
       if (this.gameOver()) break;
 
@@ -235,7 +240,7 @@ class TTTGame {
     console.log("");
   }
 
-  displayMatchResults() {
+  displayMatchWinner() {
     if (this.human.getScore() > this.computer.getScore()) {
       console.log("");
       console.log(`Congrats, you are the GRAND WINNER!`);
@@ -341,7 +346,7 @@ class TTTGame {
     return this.board.isFull() || this.someoneWon();
   }
 
-  goFirst() {
+  chooseFirstPlayer() {
     let answer;
 
     while (true) {
