@@ -1,5 +1,4 @@
 /* eslint-disable max-lines-per-function, max-statements */
-
 let readline = require("readline-sync");
 
 class Square {
@@ -148,7 +147,6 @@ class TTTGame {
     this.firstPlayer = this.human;
   }
 
-  // bonus feature: play again
   play() {
     this.displayWelcomeMessage();
     this.playMatch();
@@ -180,7 +178,6 @@ class TTTGame {
     let currentPlayer = this.chooseFirstPlayer();
     console.clear();
     this.board.reset();
-    // this.board.display();
     this.board.displayWithClear();
 
     while (true) {
@@ -232,7 +229,6 @@ class TTTGame {
   }
 
   displayScore() {
-    // match score
     console.log("");
     let human = this.human.getScore();
     let computer = this.computer.getScore();
