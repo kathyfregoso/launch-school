@@ -22,40 +22,6 @@ produces the following values from the getReportCard and courseReport methods re
 // here for brevity.
 // The following are only showing the properties that aren't methods for the three objects
 
-function school() {
-  return {
-    students: [],
-
-    addStudent(name, year) {
-      if (['1st', '2nd', '3rd', '4th', '5th'].includes(name.year)) {
-        let student = createStudent(name, year);
-        this.students.push(student);
-        return student;
-      } else {
-        console.log('Invalid Year')
-        return 'Invalid Year';
-      }
-      
-    },
-
-    enrollStudent() {
-      // stub
-    },
-
-    addGrade() {
-      // stub
-    },
-
-    getReportCard() {
-       // stub
-    },
-
-    courseReport() {
-       // stub
-    },
-  }
-}
-
 function createStudent(name, year) {
   return {
     name,
@@ -63,7 +29,6 @@ function createStudent(name, year) {
     courses: [],
 
     info() {
-      console.log(`${this.name} is a ${this.year} year student`);
       return `${this.name} is a ${this.year} student`;
     },
 
@@ -72,7 +37,6 @@ function createStudent(name, year) {
     },
 
     listCourses() {
-      console.log(this.courses)
       return this.courses;
     },
 
@@ -103,75 +67,106 @@ function createStudent(name, year) {
         course['note'] = note;
         }
       },
+
+      getCourse(courseCode) {
+        return this.courses.find(course => course.code === courseCode);
+      },
     };
 }
 
-let foo = createStudent('Foo', '1st');
-foo.info(); // "Foo is a 1st year student"
-foo.listCourses(); // []
-foo.addCourse({ name: 'Math', code: 101 });
-foo.addCourse({ name: 'Advanced Math', code: 102 });
-foo.listCourses(); // [{ name: 'Math', code: 101 }, { name: 'Advanced Math', code: 102 }]
-foo.addNote(101, 'Fun course');
-foo.addNote(101, 'Remember to study for algebra');
-foo.viewNotes(); // "Math: Fun course; Remember to study for algebra"
-foo.addNote(102, 'Difficult subject');
-foo.viewNotes(); 
-// "Math: Fun course; Remember to study for algebra"
-// "Advance Math: Difficult subject"
-foo.updateNote(101, 'Fun course');
-foo.viewNotes();
-// "Math: Fun course"
-// "Advanced Math: Difficult subject"
+const school = {
+  students: [],
 
-// foo
-// {
-//   name: 'foo',
-//   year: '3rd',
-//   courses: [
-//     { name: 'Math', code: 101, grade: 95, },
-//     { name: 'Advanced Math', code: 102, grade: 90, },
-//     { name: 'Physics', code: 202, }
-//   ],
-// }
+  addStudent: function(name, year) {
+    if (['1st', '2nd', '3rd', '4th', '5th'].includes(year)) {
+      let student = createStudent(name, year);
+      this.students.push(student);
+      return student;
+    } else {
+      console.log('Invalid Year');
+    }
+  },
+  
 
-// bar
-// {
-//   name: 'bar',
-//   year: '1st',
-//   courses: [
-//     { name: 'Math', code: 101, grade: 91, },
-//   ],
-// }
+  enrollStudent(studentName, courseName, courseCode) {
+    this.getStudent(studentName).addCourse({
+      name: courseName,
+      code: courseCode,
+    });
+  },
 
-// qux
-// {
-//   name: 'qux',
-//   year: '2nd',
-//   courses: [
-//     { name: 'Math', code: 101, grade: 93, },
-//     { name: 'Advanced Math', code: 102, grade: 90, },
-//    ],
-// }
+  getStudent(studentName) {
+    return this.students.find(student => student.name === studentName);
+  },
 
-school.getReportCard(foo);
-// = Math: 95
-// = Advanced Math: 90
-// = Physics: In progress
+  addGrade(studentName, courseCode, grade) {
+    this.getStudent(studentName).getCourse(courseCode).grade = grade;
+  },
 
-school.courseReport('Math');
-// = =Math Grades=
-// = foo: 95
-// = bar: 91
-// = qux: 93
-// = ---
-// = Course Average: 93
+  getReportCard(studentName) {
+    this.getStudent(studentName).courses.forEach(course => {
+      if (course.grade) {
+        console.log(`${course.name}: ${course.grade}`);
+      } else {
+        console.log(`${course.name}: In progress`);
+      }
+    });
+  },
 
-school.courseReport('Advanced Math');
-// = =Advanced Math Grades=
-// = foo: 90
-// = qux: 90
-// = ---
-// = Course Average: 90
+  courseReport(courseName) {
+    let getCourse = (student, courseName) => {
+      return student.listCourses().find(course => {
+        return course.name === courseName;
+      });
+    };
 
-school.courseReport('Physics'); // undefined
+    let courseStudents = this.students.map(student => {
+      let course = getCourse(student, courseName) || { grade: undefined };
+      return { name: student.name, grade: course.grade };
+    }).filter(student => student.grade);
+
+    if (courseStudents.length > 0) {
+      console.log(`= ${courseName} Grades=`);
+
+      let average = courseStudents.reduce((total, student) => {
+        console.log(`${student.name} : ${student.grade}`);
+        return total + student.grade;
+      }, 0) / courseStudents.length;
+
+      console.log('---');
+      console.log(`Course Average: ${average}`);
+    }
+  },
+
+};
+
+console.log("foo:");
+school.addStudent("foo", "3rd");
+school.enrollStudent("foo", "Math", 101);
+school.enrollStudent("foo", "Advanced Math", 102);
+school.enrollStudent("foo", "Physics", 202);
+school.addGrade("foo", 101, 95);
+school.addGrade("foo", 102, 90);
+school.getReportCard("foo");
+console.log("");
+
+console.log("bar:");
+school.addStudent("bar", "1st");
+school.enrollStudent("bar", "Math", 101);
+school.addGrade("bar", 101, 91);
+school.getReportCard("bar");
+console.log("");
+
+console.log("qux:");
+school.addStudent("qux", "2nd");
+school.enrollStudent("qux", "Math", 101);
+school.enrollStudent("qux", "Advanced Math", 102);
+school.addGrade("qux", 101, 93);
+school.addGrade("qux", 102, 90);
+school.getReportCard("qux");
+console.log("");
+
+school.courseReport("Math");
+console.log("");
+school.courseReport("Advanced Math");
+school.courseReport("Physics");
